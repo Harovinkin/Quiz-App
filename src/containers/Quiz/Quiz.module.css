@@ -1,0 +1,7 @@
+.Quiz {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  padding-top: 100px;
+  background: linear-gradient(90deg, rgb(11, 81, 233), rgb(13, 164, 252));
+}

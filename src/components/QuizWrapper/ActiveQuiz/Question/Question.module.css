@@ -1,0 +1,11 @@
+.Question {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Question p {
+  padding: 0;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+}

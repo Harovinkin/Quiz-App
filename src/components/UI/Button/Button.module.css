@@ -1,0 +1,30 @@
+.Button {
+  margin: 0;
+  padding: 8px 20px 5px;
+  border: 1.5px solid #fff;
+  border-radius: 6px;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.Button:hover {
+  background: rgb(83, 160, 10);
+  transition: background .3s ease-in-out;
+}
+
+.Button:focus {
+  outline: none;
+}
+
+.Button:active {
+  box-shadow: inset 2px 2px 1px rgba(0, 0, 0, .3);
+}
+
+.primary {
+  background: rgb(102, 199, 12);
+}
+
+.error {
+  background: rgb(199, 12, 12);
+}
