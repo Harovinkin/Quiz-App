@@ -10,10 +10,10 @@ function App() {
   return (
     <Layout>
       <Switch>
-        <Route to="/auth" component={Auth} />
-        <Route to="/quiz-creator" component={QuizCreator} />
-        <Route to="/quiz/:id" component={Quiz} />
-        <Route to="/" component={QuizList} />
+        <Route path="/auth" component={Auth} />
+        <Route path="/quiz-creator" component={QuizCreator} />
+        <Route path="/quiz/:id" component={Quiz} />
+        <Route path="/" component={QuizList} />
       </Switch>
     </Layout>
   );

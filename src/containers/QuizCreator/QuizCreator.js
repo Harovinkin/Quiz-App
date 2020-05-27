@@ -4,7 +4,7 @@ export default class QuizCreator extends Component {
   render() {
     return (
       <div>
-        <h1>Quiz Create</h1>
+        <h1>Quiz Creator</h1>
       </div>
     );
   }
