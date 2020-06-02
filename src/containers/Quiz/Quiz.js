@@ -6,6 +6,7 @@ import ActiveQuiz from "../../components/QuizWrapper/ActiveQuiz/ActiveQuiz";
 import FinishedQuiz from "../../components/FinishedQuiz/FinishedQuiz";
 import ResultsList from "../../components/FinishedQuiz/ResultsList/ResultsList";
 import Button from "../../components/UI/Button/Button";
+import { Link } from "react-router-dom";
 
 class Quiz extends Component {
   state = {
@@ -133,6 +134,9 @@ class Quiz extends Component {
             <Button onClick={this.retryHandler} type="primary">
               Повторить опрос
             </Button>
+            <Link to="/">
+              <Button type="success">Список опросов</Button>
+            </Link>
           </FinishedQuiz>
         ) : (
           <QuizWrapper>
