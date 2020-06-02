@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classes from "./Layout.module.css";
-import Quiz from "../../containers/Quiz/Quiz";
+// import Quiz from "../../containers/Quiz/Quiz";
 import MenuToggle from "../../components/Navigation/MenuToggle/MenuToggle";
 import Drawer from "../../components/Navigation/Drawer/Drawer";
 
