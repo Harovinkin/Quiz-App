@@ -12,7 +12,7 @@
 .Input input {
   display: block;
   margin: 0 0 5px;
-  padding: 0;
+  padding: 7px;
   box-sizing: border-box;
   border: 1px solid #bebebe;
   width: 100%;
@@ -22,7 +22,7 @@
 
 .Input span {
   color: #f01f30;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: bold;
 }
 

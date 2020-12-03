@@ -22,7 +22,8 @@
 }
 
 .AuthForm {
-  background: rgb(73, 202, 22);
-  padding: 10px 8px;
+  background: #eee;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  padding: 15px;
   border-radius: 6px;
 }
