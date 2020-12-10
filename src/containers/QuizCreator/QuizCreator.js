@@ -4,6 +4,7 @@ import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
 import {createControl} from '../../form/formFremework'
 import Auxiliary from "../../hoc/Auxiliary/Auxiliary";
+import Select from "../../components/UI/Select/Select";
 
 function createOptionControl(number) {
   return createControl({
@@ -33,6 +34,7 @@ function createFormControls() {
 export default class QuizCreator extends Component {
   state = {
     quiz: [], /** Массив для добавления и хранения объектов с вопросами */
+    rightAnswerId: 1,
     formControls: createFormControls()
   }
 
@@ -56,32 +58,51 @@ export default class QuizCreator extends Component {
   renderControls() {
     return Object.keys(this.state.formControls).map((controlName, idx) => {
       const control = this.state.formControls[controlName];
-      // console.log(control)
+      // if (idx === 0) console.log(control)
+
       return (
         <Auxiliary key={controlName + idx}>
           <Input
-          label={control.label}
-          value={control.value}
-          valid={control.valid}
-          shouldValidate={!!control.validation}
-          touched={control.touched}
-          errorMessage={control.errorMessage}
-          onChange={e => this.onChangeHandler(e.target.value, controlName)}
-        />
-        {idx === 0 ? <hr /> : null}
+            label={control.label}
+            value={control.value}
+            valid={control.valid}
+            shouldValidate={!!control.validation}
+            touched={control.touched}
+            errorMessage={control.errorMessage}
+            onChange={e => this.onChangeHandler(e.target.value, controlName)}
+          />
+          {idx === 0 ? <hr /> : null}
         </Auxiliary>
       )
     })
   }
 
+  selectChangeHandler = e => {
+    this.setState({
+      rightAnswerId: +e.target.value
+    })
+  }
+
   render() {
+    const select = <Select 
+      label="Select right answer"
+      value={this.state.rightAnswerId}
+      onChange={this.selectChangeHandler}
+      options={[
+        {text: 1, value: 1},
+        {text: 2, value: 2},
+        {text: 3, value: 3},
+        {text: 4, value: 4},
+      ]}
+    />
+
     return (
       <div className={classes.QuizCreator}>
         <div>
           <h1>Quiz Creator</h1>
           <form onSubmit={this.submitHandler}>
             {this.renderControls()}
-            <select></select>
+            { select }
             <Button
               type='primary'
               onClick={this.addQuestionHandler}
