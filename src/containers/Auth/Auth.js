@@ -71,8 +71,8 @@ export default class Auth extends Component {
 
   onChangeHandler = ({target}, controlName) => {
 
-    const formControls = {...this.state.formControls};
-    const control = {...formControls[controlName]} /** Независимая копия контрола (емаил или пасворд) для переопределения полей */
+    const formControls = { ...this.state.formControls };
+    const control = { ...formControls[controlName] } /** Независимая копия контрола (емаил или пасворд) для переопределения полей */
 
     control.value = target.value;
     control.touched = true;
