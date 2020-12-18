@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import classes from "./QuizList.module.css";
 import { NavLink } from "react-router-dom";
 import Axios from "axios";
+import Loader from "../../components/UI/Loader/Loader";
 
 export default class QuizList extends Component {
   state = {
-    quizes: []
+    quizes: [],
+    isLoading: true
   }
 
   renderQuizList() {
@@ -30,7 +32,8 @@ export default class QuizList extends Component {
       })
 
       this.setState({
-        quizes
+        quizes,
+        isLoading: false
       })
     } catch (e) {
       console.log(e)
@@ -42,7 +45,11 @@ export default class QuizList extends Component {
     return (
       <div className={classes.QuizList}>
         <h1>Quiz List</h1>
-        <ul>{this.renderQuizList()}</ul>
+        {
+          this.state.isLoading
+          ? <Loader />
+          : <ul>{this.renderQuizList()}</ul>
+        }
       </div>
     );
   }
