@@ -7,6 +7,8 @@ import FinishedQuiz from "../../components/FinishedQuiz/FinishedQuiz";
 import ResultsList from "../../components/FinishedQuiz/ResultsList/ResultsList";
 import Button from "../../components/UI/Button/Button";
 import { Link } from "react-router-dom";
+import Axios from "../../axios/axios-quiz";
+import Loader from '../../components/UI/Loader/Loader'
 
 class Quiz extends Component {
   state = {
@@ -14,52 +16,8 @@ class Quiz extends Component {
     results: {},
     answerState: null,
     activeQuestion: 0,
-    quiz: [
-      {
-        question: "Крыса это?",
-        id: 1,
-        rightAnswer: 1,
-        answers: [
-          { text: "Животное", id: 1 },
-          { text: "Насекомое", id: 2 },
-          { text: "Птица", id: 3 },
-          { text: "Рыба", id: 4 },
-        ],
-      },
-      {
-        question: "Комар это?",
-        id: 2,
-        rightAnswer: 2,
-        answers: [
-          { text: "Млекопитающее", id: 1 },
-          { text: "Кровососущее", id: 2 },
-          { text: "Мясоед", id: 3 },
-          { text: "Травоед", id: 4 },
-        ],
-      },
-      // {
-      //   question: 'Насекомое это?',
-      //   id: 3,
-      //   rightAnswer: 1,
-      //   answers: [
-      //     {text: 'Жуки', id: 1},
-      //     {text: 'Пауки', id: 2},
-      //     {text: 'Пресмыкающиеся', id: 3},
-      //     {text: 'Растения', id: 4}
-      //   ],
-      // },
-      // {
-      //   question: 'Танк это?',
-      //   id: 4,
-      //   rightAnswer: 3,
-      //   answers: [
-      //     {text: 'Машина', id: 1},
-      //     {text: 'Пушка', id: 2},
-      //     {text: 'Оружие', id: 3},
-      //     {text: 'Гусеничник', id: 4}
-      //   ],
-      // }
-    ],
+    quiz: [],
+    loading: true,
   };
 
   onAnswerClickHandler = (answerId) => {
@@ -122,35 +80,54 @@ class Quiz extends Component {
     });
   };
 
+  async componentDidMount() {
+    try {
+      const response = await Axios.get(`/quizes/${this.props.match.params.id}.json`)
+      const quiz = response.data
+
+      this.setState({
+        quiz,
+        loading: false
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   render() {
     const { quiz, activeQuestion, answerState, results } = this.state;
 
     return (
       <div className={classes.Quiz}>
-        {this.state.isQuizFinished ? (
-          <FinishedQuiz>
-            <QuizTitle>результаты теста</QuizTitle>
-            <ResultsList results={results} quiz={quiz} />
-            <Button onClick={this.retryHandler} type="primary">
-              Повторить опрос
-            </Button>
-            <Link to="/">
-              <Button type="success">Список опросов</Button>
-            </Link>
-          </FinishedQuiz>
-        ) : (
-          <QuizWrapper>
-            <QuizTitle>ответьте на все вопросы теста</QuizTitle>
-
-            <ActiveQuiz
-              quizLength={quiz.length}
-              questionNumber={activeQuestion + 1}
-              quiz={quiz[activeQuestion]}
-              onAnswerClick={this.onAnswerClickHandler}
-              answerState={answerState}
-            />
-          </QuizWrapper>
-        )}
+        {
+          this.state.loading
+            ? <Loader />
+            : this.state.isQuizFinished 
+                ? <FinishedQuiz>
+                    <QuizTitle>результаты теста</QuizTitle>
+                    <ResultsList results={results} quiz={quiz} />
+                      <Button onClick={this.retryHandler} type="primary">
+                        Повторить опрос
+                      </Button>
+                    <Link to="/">
+                      <Button type="success">
+                        Список опросов
+                      </Button>
+                    </Link>
+                  </FinishedQuiz>
+                : <QuizWrapper>
+                    <QuizTitle>
+                      ответьте на все вопросы теста
+                    </QuizTitle>
+                      <ActiveQuiz
+                        quizLength={quiz.length}
+                        questionNumber={activeQuestion + 1}
+                        quiz={quiz[activeQuestion]}
+                        onAnswerClick={this.onAnswerClickHandler}
+                        answerState={answerState}
+                      />
+                  </QuizWrapper>
+        }
       </div>
     );
   }
